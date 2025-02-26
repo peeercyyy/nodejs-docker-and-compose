@@ -19,15 +19,11 @@ services:
     container_name: 'postgres'
     image: postgres:12.12-alpine
     restart: always
-    expose:
-      - '5432'
     env_file: ./.env
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - ./pgdata:/var/lib/postgresql/data/pgdata
-    ports:
-      - 5432:5432
     networks:
       - nest-postgres
 
