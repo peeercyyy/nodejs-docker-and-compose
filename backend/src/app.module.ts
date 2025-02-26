@@ -1,27 +1,23 @@
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
-import { getPostgresConfig } from './config/database.config';
 import { OffersModule } from './offers/offers.module';
 import { UsersModule } from './users/users.module';
 import { WishesModule } from './wishes/wishes.module';
 import { WishlistsModule } from './wishlists/wishlists.module';
 
-console.log({ postgresConfig: getPostgresConfig });
+import databaseConfig from './config/database.config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRoot(databaseConfig()),
     UsersModule,
     WishesModule,
     WishlistsModule,
     OffersModule,
-    TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) =>
-        getPostgresConfig(configService),
-    }),
     AuthModule,
   ],
   controllers: [AppController],
