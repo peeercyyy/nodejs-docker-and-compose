@@ -20,7 +20,7 @@ import { AuthService } from './auth.service';
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>('jwt_secret') || 'jwt_secret',
+        secret: configService.get<string>('JWT_SECRET') || 'jwt_secret',
       }),
       inject: [ConfigService],
     }),

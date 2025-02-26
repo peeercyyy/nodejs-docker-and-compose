@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
-import { postgresConfig } from './config/database.config';
+import { getPostgresConfig } from './config/database.config';
 import { OffersModule } from './offers/offers.module';
 import { UsersModule } from './users/users.module';
 import { WishesModule } from './wishes/wishes.module';
 import { WishlistsModule } from './wishlists/wishlists.module';
+
+console.log({ postgresConfig: getPostgresConfig });
 
 @Module({
   imports: [
@@ -14,7 +17,11 @@ import { WishlistsModule } from './wishlists/wishlists.module';
     WishesModule,
     WishlistsModule,
     OffersModule,
-    TypeOrmModule.forRoot(postgresConfig),
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) =>
+        getPostgresConfig(configService),
+    }),
     AuthModule,
   ],
   controllers: [AppController],
