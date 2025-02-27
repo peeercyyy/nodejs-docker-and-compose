@@ -1,3 +1,5 @@
 # Докеризация приложения
 
-Перед тем как приступить к выполнению проектной работы разместите в репозитории исходный код фронтенд и бэкенд частей сервиса КупиПодариДай, реализованного вами ранее. 
+ip: 158.160.15.133
+Frontend: https://peeercyyy-docker.nomorepartiessbs.ru
+Backend: https://api.peeercyyy-docker.nomorepartiessbs.ru
